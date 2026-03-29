@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONOFORM — Limited Drops</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f0ede8;
+    --accent: #ffffff;
+    --red: #ffffff;
+    --gray: #1a1a1a;
+    --mid: #2a2a2a;
+    --text-muted: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── MARQUEE TOP BAR ── */
+  .top-bar {
+    background: var(--black);
+    border-bottom: 1px solid #333;
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 6px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-track span { margin: 0 40px; }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1f1f1f;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.2em;
+    color: var(--white);
+  }
+  .nav-icons { display: flex; gap: 20px; align-items: center; }
+  .nav-icons svg { width: 20px; height: 20px; stroke: var(--white); fill: none; cursor: pointer; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 92vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.45);
+  }
+  /* ⬇ INDICATOR LABEL — hidden */
+  .indicator { display: none; }
+
+  .hero-content {
+    position: relative;
+    z-index: 5;
+    text-align: left;
+    padding: 0 60px;
+    max-width: 780px;
+    margin-left: 4%;
+  }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8.5vw, 110px);
+    line-height: 0.92;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-title em {
+    font-style: normal;
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+  .hero-sub {
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    color: rgba(240,237,232,0.55);
+    margin-top: 18px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-cta {
+    display: inline-block;
+    margin-top: 48px;
+    padding: 18px 64px;
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.8s 0.45s ease both;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  }
+  .hero-cta:hover { background: var(--accent); color: var(--black); transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.55); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION HEADING ── */
+  .section-heading {
+    text-align: center;
+    padding: 80px 40px 48px;
+  }
+  .section-heading h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    letter-spacing: 0.1em;
+  }
+  .section-heading p {
+    max-width: 520px;
+    margin: 12px auto 0;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    line-height: 1.8;
+    text-transform: uppercase;
+  }
+
+  /* ── PRODUCTS GRID ── */
+  .products-section {
+    padding: 0 40px 80px;
+    position: relative;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .product-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--gray);
+  }
+  .product-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.3s;
+    filter: grayscale(20%);
+  }
+  .product-card:hover img { transform: scale(1.06); filter: grayscale(0%); }
+  .product-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: #fff;
+    color: #000;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 4px 8px;
+  }
+  .product-badge.new { background: #000; color: #fff; border: 1px solid #fff; }
+  .product-info {
+    padding: 16px;
+    background: var(--gray);
+  }
+  .product-name {
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .product-category {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .product-price {
+    margin-top: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .price-old {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: line-through;
+    font-family: 'Space Mono', monospace;
+  }
+  .price-now {
+    font-family: 'Space Mono', monospace;
+    font-size: 15px;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--gray);
+  }
+  .ticker-track {
+    display: inline-block;
+    animation: marquee 15s linear infinite;
+  }
+  .ticker-track span {
+    margin: 0 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .ticker-track span::before { content: '⟡ '; color: var(--white); }
+
+  /* ── CATEGORY HEADER ── */
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 60px 0 32px;
+  }
+  .category-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+    flex-shrink: 0;
+  }
+  .category-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    letter-spacing: 0.08em;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .category-line {
+    flex: 1;
+    height: 1px;
+    background: #333;
+  }
+  .category-view-all {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .category-view-all:hover { color: var(--white); }
+
+
+  .split-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+  }
+  .split-text {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .split-text h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 64px);
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .split-text p {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    line-height: 1.9;
+    max-width: 400px;
+  }
+  .split-text .btn {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 12px 36px;
+    border: 1px solid var(--white);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    width: fit-content;
+    transition: background 0.2s, color 0.2s;
+  }
+  .split-text .btn:hover { background: var(--white); color: var(--black); }
+  .split-img {
+    position: relative;
+    overflow: hidden;
+  }
+  .split-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%);
+    transition: filter 0.5s;
+  }
+  .split-img:hover img { filter: grayscale(0%); }
+  .split-section.reverse .split-text { order: 2; background: var(--gray); }
+  .split-section.reverse .split-img { order: 1; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid #222;
+    padding: 60px 40px 30px;
+    position: relative;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+  .footer-tagline {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+    max-width: 260px;
+  }
+  .footer-col h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul li a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid #1f1f1f;
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="marquee-track">
+    <span>LIMITED RELEASES</span><span>EXCLUSIVE DROPS</span><span>ELEGANCE IS NOW LIVE</span>
+    <span>FREE SHIPPING ON ORDERS OVER ₱1,500</span><span>NEW COLLECTION ARRIVING SOON</span>
+    <span>LIMITED RELEASES</span><span>EXCLUSIVE DROPS</span><span>ELEGANCE IS NOW LIVE</span>
+    <span>FREE SHIPPING ON ORDERS OVER ₱1,500</span><span>NEW COLLECTION ARRIVING SOON</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#clothes">Clothes</a></li>
+    <li><a href="#shoes">Shoes</a></li>
+    <li><a href="#pants">Pants</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="logo">MONOFORM</div>
+  <div class="nav-icons">
+    <!-- Search -->
+    <svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <!-- User -->
+    <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <!-- Cart -->
+    <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- ⬇ INDICATOR: HERO SECTION -->
+  <div class="indicator indicator-hero"></div>
+  <img
+    class="hero-img"
+    src="https://i.imgur.com/62PdPJS.jpg"
+    alt="Hero background — streetwear models"
+  />
+  <div class="hero-content">
+    <p class="hero-eyebrow">New Drop — 2026</p>
+    <h1 class="hero-title">STYLE<br><em>VIBE</em><br>REFLECT</h1>
+    <a href="#products" class="hero-cta">Shop Now</a>
+  </div>
+</section>
+
+<!-- SECTION HEADING -->
+<div class="section-heading">
+  <h2>Designed to Disrupt</h2>
+  <p>Luxury staples for the modern disruptor. Precision-tailored pieces that break convention and redefine presence. This isn't just fashion—it's a statement.</p>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!--  CATEGORY: CLOTHES                -->
+<!-- ═══════════════════════════════════ -->
+<section class="products-section" id="clothes">
+  <div class="category-header">
+    <div class="category-label">01</div>
+    <h2 class="category-title">Clothes</h2>
+    <div class="category-line"></div>
+    <a href="#" class="category-view-all">View All →</a>
+  </div>
+  <!-- ⬇ INDICATOR: CLOTHES SECTION -->
+  <div class="indicator indicator-products" style="position:relative;display:inline-block;margin-bottom:16px;"></div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-badge new">New</div>
+      <img src="https://i.imgur.com/GzJ2vA8.jpg" alt="Floral Print Shirt" />
+      <div class="product-info">
+        <div class="product-name">Floral Print Shirt</div>
+        <div class="product-category">Men Clothes</div>
+        <div class="product-price"><span class="price-now">₱1,200</span></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge">Sale</div>
+      <img src="https://i.imgur.com/K0e0qw3.jpg" alt="Graphic Boxy Tee" />
+      <div class="product-info">
+        <div class="product-name">Graphic Boxy Tee</div>
+        <div class="product-category">Men Clothes</div>
+        <div class="product-price">
+          <span class="price-old">₱6,700</span>
+          <span class="price-now">₱5,600</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge new">New</div>
+      <img src="https://i.imgur.com/kON2cXT.jpg" alt="Linen V-Neck Blouse" />
+      <div class="product-info">
+        <div class="product-name">Linen V-Neck Blouse</div>
+        <div class="product-category">Women Clothes</div>
+        <div class="product-price"><span class="price-now">₱2,900</span></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge">Sale</div>
+      <img src="https://i.imgur.com/pPEYrQA.jpg" alt="Classic Linen Shirt" />
+      <div class="product-info">
+        <div class="product-name">Classic Linen Shirt</div>
+        <div class="product-category">women Clothes</div>
+        <div class="product-price">
+          <span class="price-old">₱5,500</span>
+          <span class="price-now">₱4,200</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ -->
+<!--  CATEGORY: SHOES                  -->
+<!-- ═══════════════════════════════════ -->
+<section class="products-section" id="shoes" style="background:var(--gray);">
+  <div class="category-header">
+    <div class="category-label">02</div>
+    <h2 class="category-title">Shoes</h2>
+    <div class="category-line"></div>
+    <a href="#" class="category-view-all">View All →</a>
+  </div>
+  <!-- ⬇ INDICATOR: SHOES SECTION -->
+  <div class="indicator indicator-products" style="position:relative;display:inline-block;margin-bottom:16px;">SHOES SECTION — ADD/REMOVE CARDS HERE</div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-badge">Sale</div>
+      <img src="https://i.imgur.com/M5ZbJBo.jpg" alt="Polished Penny Loafer" />
+      <div class="product-info">
+        <div class="product-name">Polished Penny Loafer</div>
+        <div class="product-category">Men Shoes</div>
+        <div class="product-price">
+          <span class="price-old">₱4,500</span>
+          <span class="price-now">₱3,200</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge new">New</div>
+      <img src="https://i.imgur.com/ROwB2Wx.jpg" alt="Woven Leather Ballet Flat" />
+      <div class="product-info">
+        <div class="product-name">Woven Leather Ballet Flat</div>
+        <div class="product-category">Women Shoes</div>
+        <div class="product-price"><span class="price-now">₱4,100</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ -->
+<!--  CATEGORY: PANTS                  -->
+<!-- ═══════════════════════════════════ -->
+<section class="products-section" id="pants">
+  <div class="category-header">
+    <div class="category-label">03</div>
+    <h2 class="category-title">Pants</h2>
+    <div class="category-line"></div>
+    <a href="#" class="category-view-all">View All →</a>
+  </div>
+  <!-- ⬇ INDICATOR: PANTS SECTION -->
+  <div class="indicator indicator-products" style="position:relative;display:inline-block;margin-bottom:16px;">PANTS SECTION — ADD/REMOVE CARDS HERE</div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-badge">Sale</div>
+      <img src="https://i.imgur.com/UHeAmNY.jpg" alt="Loose Fit Light Wash Denim" />
+      <div class="product-info">
+        <div class="product-name">Loose Fit Light Wash Denim</div>
+        <div class="product-category">Men Pants</div>
+        <div class="product-price">
+          <span class="price-old">₱3,200</span>
+          <span class="price-now">₱2,400</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge">Sale</div>
+      <img src="https://i.imgur.com/rwdswXs.jpg" alt="Raw Indigo Wide Leg" />
+      <div class="product-info">
+        <div class="product-name">Raw Indigo Wide Leg</div>
+        <div class="product-category">Men Pants</div>
+        <div class="product-price">
+          <span class="price-old">₱3,500</span>
+          <span class="price-now">₱2,800</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge new">New</div>
+      <img src="https://i.imgur.com/ZGH8drV.jpg" alt="Pleated Relaxed Trouser" />
+      <div class="product-info">
+        <div class="product-name">Pleated Relaxed Trouser</div>
+        <div class="product-category">Women Pants</div>
+        <div class="product-price"><span class="price-now">₱2,200</span></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge new">New</div>
+      <img src="https://i.imgur.com/nfApgGm.jpg" alt="High-Waisted Palazzo Pant" />
+      <div class="product-info">
+        <div class="product-name">High-Waisted Palazzo Pant</div>
+        <div class="product-category">Women Pants</div>
+        <div class="product-price"><span class="price-now">₱1,900</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Limited Edition</span><span>New Arrival</span><span>Limited Edition</span>
+    <span>New Arrival</span><span>Limited Edition</span><span>New Arrival</span>
+    <span>Limited Edition</span><span>New Arrival</span><span>Limited Edition</span>
+    <span>New Arrival</span><span>Limited Edition</span><span>New Arrival</span>
+  </div>
+</div>
+
+<!-- MISSION -->
+<div class="split-section">
+  <div class="split-text" style="background:#111;">
+    <!-- ⬇ INDICATOR: OUR MISSION -->
+    <div class="indicator indicator-mission">OUR MISSION SECTION — EDIT TEXT &amp; IMAGE</div>
+    <h3>Our Mission</h3>
+    <p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>
+    <a href="#" class="btn">Learn More</a>
+  </div>
+  <div class="split-img">
+    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=900&q=80" alt="Our Mission" />
+  </div>
+</div>
+
+<!-- VISION -->
+<div class="split-section reverse">
+  <div class="split-img">
+    <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=900&q=80" alt="Our Vision" />
+  </div>
+  <div class="split-text" style="background:#1a1a1a;">
+    <!-- ⬇ INDICATOR: OUR VISION -->
+    <div class="indicator indicator-vision">OUR VISION SECTION — EDIT TEXT &amp; IMAGE</div>
+    <h3>Our Vision</h3>
+    <p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>
+    <a href="#" class="btn">Learn More</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <!-- ⬇ INDICATOR: FOOTER -->
+  <div class="indicator indicator-footer">FOOTER — EDIT LINKS &amp; BRAND INFO</div>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">MONOFORM</div>
+      <p class="footer-tagline">Luxury staples for the modern disruptor. This isn't just fashion — it's a statement.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Clothes</a></li>
+        <li><a href="#">Shoes</a></li>
+        <li><a href="#">Pants</a></li>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Sizing Guide</a></li>
+        <li><a href="#">Lookbook</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Track Order</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 MONOFORM. All rights reserved.</span>
+    <span>Philippines — English (PH) — ₱ PHP</span>
+  </div>
+</footer>
+
+</body>
+</html>
